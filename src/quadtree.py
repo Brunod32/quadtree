@@ -35,28 +35,11 @@ class QuadTree:
 
     @property
     def depth(self) -> int:
-        """
-        Calculate and return the recursion depth of the quadtree.
-
-        This method calculates the depth of the quadtree by recursively traversing the tree structure and determining
-        the maximum depth from the root node to the deepest leaf node.
-
-        Returns:
-            int: The depth of the quadtree, which is the maximum number of levels in the tree.
-        """
-        depths = [0]
-        if isinstance(self.hg, QuadTree):
-            depths.append(self.hg.depth)
-        if isinstance(self.hd, QuadTree):
-            depths.append(self.hd.depth)
-        if isinstance(self.bd, QuadTree):
-            depths.append(self.bd.depth)
-        if isinstance(self.bg, QuadTree):
-            depths.append(self.bg.depth)
-        return 1 + max(depths)
+        """ Recursion depth of the quadtree"""
+        return 1
 
     @staticmethod
-    def from_file(filename: str = None) -> 'TkQuadTree':
+    def from_file(filename: str = None) -> TkQuadTree:
         """
         Create a TkQuadTree instance from a textual file.
 
@@ -83,7 +66,7 @@ class QuadTree:
 
         file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
         parent_directory = os.path.abspath(os.path.join(file_path, os.pardir))
-        # filename = '../files/quadtree-easy.txt'
+        # filename = 'quadtree_easy.txt'
         txt_file = os.path.join(parent_directory, 'files', filename)
 
         with open(txt_file, 'r') as file:
@@ -238,13 +221,6 @@ def main():
     or the specified file path exists and contains a valid representation of a quadtree
     structure in the expected format.
     """
-    # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    # parent_directory = os.path.abspath(os.path.join(file_path, os.pardir))
-    # filename = '../files/quadtree.txt'
-    # txt_file = os.path.join(parent_directory, 'files', filename)
-    # with open(txt_file, 'r') as file:
-    #     data = eval(file.read())
-
     tk_quadtree = TkQuadTree.from_file()
     tk_quadtree.paint()
 

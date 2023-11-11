@@ -56,9 +56,9 @@ class QuadTree:
         return 1 + max(depths)
 
     @staticmethod
-    def from_file(filename: str) -> QuadTree:
+    def from_file(filename: str = None) -> 'TkQuadTree':
         """
-        Create a QuadTree instance from a textual file.
+        Create a TkQuadTree instance from a textual file.
 
         This static method reads the content of a given textual file containing a representation of a quadtree and
         constructs a QuadTree instance from it.
@@ -77,14 +77,18 @@ class QuadTree:
             The file should contain a valid representation of a quadtree in a suitable format
             to be successfully parsed and converted into a QuadTree instance.
         """
+
+        if filename is None:
+            filename = 'quadtree.txt'
+
         file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
         parent_directory = os.path.abspath(os.path.join(file_path, os.pardir))
-        filename = '../files/quadtree-easy.txt'
+        # filename = '../files/quadtree-easy.txt'
         txt_file = os.path.join(parent_directory, 'files', filename)
 
         with open(txt_file, 'r') as file:
             data = eval(file.read())
-        return QuadTree.from_list(data)
+        return TkQuadTree(data)
 
     @staticmethod
     def from_list(data: list) -> QuadTree:
@@ -100,8 +104,7 @@ class QuadTree:
             indicating a leaf node.
 
         Returns:
-            QuadTree: A QuadTree instance representing the quadtree structure defined by
-            the provided list.
+            TkQuadTree: A TkQuadTree instance representing the quadtree structure read from the file.
 
         Example:
             To create a QuadTree instance from a list representation:
@@ -235,14 +238,14 @@ def main():
     or the specified file path exists and contains a valid representation of a quadtree
     structure in the expected format.
     """
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    parent_directory = os.path.abspath(os.path.join(file_path, os.pardir))
-    filename = '../files/quadtree.txt'
-    txt_file = os.path.join(parent_directory, 'files', filename)
-    with open(txt_file, 'r') as file:
-        data = eval(file.read())
+    # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+    # parent_directory = os.path.abspath(os.path.join(file_path, os.pardir))
+    # filename = '../files/quadtree.txt'
+    # txt_file = os.path.join(parent_directory, 'files', filename)
+    # with open(txt_file, 'r') as file:
+    #     data = eval(file.read())
 
-    tk_quadtree = TkQuadTree(data)
+    tk_quadtree = TkQuadTree.from_file()
     tk_quadtree.paint()
 
 
